@@ -25,8 +25,17 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("select * from park;", conn);
-
+                    SqlCommand cmd = new SqlCommand(@"select site.site_id
+                                                    from site
+                                                    where site.campground_id = @campground_id and
+                                                    site_id not in
+                                                    (select site.site_id 
+                                                    from site 
+                                                    left join reservation on site.site_id = reservation.site_id
+                                                    where site.campground_id = @campground_id and (
+                                                    @startDate between reservation.from_date and reservation.to_date or 
+                                                    @endDate between reservation.from_date and reservation.to_date));", conn);
+                                                    
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
