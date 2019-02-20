@@ -5,7 +5,7 @@ using Capstone.Models;
 
 namespace Capstone.DAL
 {
-    interface IParkDAO
+    public interface IParkDAO
     {
         /// <summary>
         /// List of all parks
