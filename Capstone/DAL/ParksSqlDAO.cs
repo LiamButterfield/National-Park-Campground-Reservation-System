@@ -25,7 +25,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("select * from park sort by name;", conn);
+                    SqlCommand cmd = new SqlCommand("select * from park order by name;", conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
