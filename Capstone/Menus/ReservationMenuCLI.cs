@@ -36,7 +36,7 @@ namespace Capstone.Menus
                 }
                 else if(campgrounds.Any(c => c.ID == int.Parse(input)))
                 {
-                    campgroundID = int.Parse(input);
+                    reservationRequest.campground = int.Parse(input);
                 }
                 else
                 {
@@ -46,9 +46,9 @@ namespace Capstone.Menus
                     break;
                 }
                 Console.Write("What is the arrival date?: ");
-                requestedStart = DateTime.Parse(Console.ReadLine());
+                reservationRequest.from = DateTime.Parse(Console.ReadLine());
                 Console.Write("What is the departure date?: ");
-                requestedEnd = DateTime.Parse(Console.ReadLine());
+                reservationRequest.to = DateTime.Parse(Console.ReadLine());
                 break;
             }
             return reservationRequest;
@@ -65,7 +65,29 @@ namespace Capstone.Menus
 
             foreach (Site site in sites)
             {
-                Console.WriteLine($"{site.ID}{site.SiteNumber}{site.MaxOccupancy}{site.Accessible}{site.MaxRVLength}{site.Utilities}");
+                var campsite =
+                    from site in sites
+                    join campground in campgrounds on site.CampgroundID equals campground.ID;
+
+                string accessible = "No";
+                if (site.Accessible)
+                {
+                    accessible = "Yes";
+                }
+
+                string rVLength = "N/A";
+                if(site.MaxRVLength > 0)
+                {
+                    rVLength = site.MaxRVLength.ToString();
+                }
+
+                string utility = "No";
+                if (site.Utilities)
+                {
+                    accessible = "Yes";
+                }
+
+                Console.WriteLine($"{thisCampground.Name}{site.ID}{site.SiteNumber}{site.MaxOccupancy}{accessible}{rVLength}{utility}{thisCampground.DailyFee}");
             }
             Console.ReadLine();
             return camperAndSite;
