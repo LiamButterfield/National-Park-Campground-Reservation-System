@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using Capstone.DAL;
+using Capstone.Menus;
 
 namespace Capstone
 {
@@ -19,6 +20,14 @@ namespace Capstone
             string connectionString = configuration.GetConnectionString("Project");
 
             IParkDAO parkDAO = new ParksSqlDAO(connectionString);
+            ICampgroundDAO campgroundDAO = new CampgroundSqlDAO(connectionString);
+            ISiteDAO siteDAO = new SitesSqlDAO(connectionString);
+            IReservationDAO reservationDAO = new ReservationsSqlDAO(connectionString);
+            MainMenuCLI mainMenu = new MainMenuCLI();
+
+            NPSystemController nPSystemController = new NPSystemController(parkDAO, campgroundDAO, siteDAO, reservationDAO, mainMenu);
+            nPSystemController.Run();
+
         }
     }
 }

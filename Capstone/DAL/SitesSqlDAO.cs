@@ -24,8 +24,8 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    
-                    SqlCommand cmd = conn.CreateCommand()
+
+                    SqlCommand cmd = conn.CreateCommand();
 
                     if(campground_id != null)
                     {
@@ -75,7 +75,7 @@ namespace Capstone.DAL
             }
             catch (SqlException ex)
             {
-                Console.WriteLine("Error retreiving parks");
+                Console.WriteLine("Error retreiving sites");
                 Console.WriteLine(ex.Message);
             }
 

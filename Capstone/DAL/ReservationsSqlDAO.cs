@@ -30,10 +30,12 @@ namespace Capstone.DAL
                                                     from reservation
                                                     join site on reservation.site_id = site.site_id
                                                     join campground on site.campground_id = campground.campground_id
-                                                    where from_date <= @from_date and 
+                                                    where from_date <= @from_date and
+                                                    to_date > @current_date and
                                                     campground.park_id = @park_id;",conn);
 
                     cmd.Parameters.AddWithValue("@park_id", park.ID);
+                    cmd.Parameters.AddWithValue("@current_date", DateTime.Now);
                     cmd.Parameters.AddWithValue("@from_date", DateTime.Now.AddDays(30));
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -47,10 +49,11 @@ namespace Capstone.DAL
             }
             catch (SqlException ex)
             {
-                Console.WriteLine("Error retreiving parks");
+                Console.WriteLine("Error retreiving reservations");
                 Console.WriteLine(ex.Message);
             }
 
+            return reservations;
         }
 
         private Reservation ConvertReaderToReservation(SqlDataReader reader)
