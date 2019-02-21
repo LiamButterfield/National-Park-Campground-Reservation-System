@@ -13,6 +13,7 @@ namespace Capstone.Menus
 
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine(park.Name);
                 Console.WriteLine();
                 Console.WriteLine($"Location:           {park.Location}");

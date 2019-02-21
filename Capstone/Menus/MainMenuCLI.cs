@@ -13,6 +13,7 @@ namespace Capstone.Menus
 
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Welcome to the National Park Campsite Reservation System");
                 Console.WriteLine("**----------------------------------------------------**");
                 foreach (Park park in parks)

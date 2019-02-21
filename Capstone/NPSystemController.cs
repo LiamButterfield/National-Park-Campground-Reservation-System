@@ -15,8 +15,9 @@ namespace Capstone
         private IReservationDAO reservationDAO;
         private MainMenuCLI mainMenu;
         private ParkInfoMenuCLI parkInfoMenu;
+        private ParkCampgroundsCLI parkCampgrounds;
 
-        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu, ParkInfoMenuCLI parkInfoMenu)
+        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu, ParkInfoMenuCLI parkInfoMenu, ParkCampgroundsCLI parkCampgrounds)
         {
             this.parkDAO = parkDAO;
             this.campgroundDAO = campgroundDAO;
@@ -24,6 +25,7 @@ namespace Capstone
             this.reservationDAO = reservationDAO;
             this.mainMenu = mainMenu;
             this.parkInfoMenu = parkInfoMenu;
+            this.parkCampgrounds = parkCampgrounds;
         }
 
         public void Run()
@@ -42,9 +44,26 @@ namespace Capstone
                 int parkID = int.Parse(mMInput);
 
                 Park userPark = parks[parkID - 1];
-                int piInput = parkInfoMenu.DisplayMenu(userPark);
+                while (true)
+                {
+                    IList<Campground> campgrounds = campgroundDAO.GetAllCampgroundsByPark(parkID);
+                    int pIInput = parkInfoMenu.DisplayMenu(userPark);
+                    int pCInput = 0;
+                    if (pIInput == 1)
+                    {                    
+                    pCInput = parkCampgrounds.DisplayMenu(userPark, campgrounds);
+                    }
+                    else if (pIInput == 2 || pCInput == 1)
+                    {
+                        ;
+                    }
+                    else if (pIInput == 3)
+                    {
+                        break;
+                    }
 
-                IList<Campground> campgrounds = campgroundDAO.GetAllCampgroundsByPark(parkID);
+
+                }
 
 
 
