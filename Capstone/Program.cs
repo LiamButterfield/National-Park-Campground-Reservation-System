@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using Capstone.DAL;
 
 namespace Capstone
 {
@@ -16,6 +17,8 @@ namespace Capstone
             IConfigurationRoot configuration = builder.Build();
 
             string connectionString = configuration.GetConnectionString("Project");
+
+            IParkDAO parkDAO = new ParksSqlDAO(connectionString);
         }
     }
 }

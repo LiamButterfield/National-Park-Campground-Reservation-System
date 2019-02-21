@@ -24,19 +24,47 @@ namespace Capstone.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+                    
+                    SqlCommand cmd = conn.CreateCommand()
 
-                    SqlCommand cmd = new SqlCommand(@"select site.site_id
-                                                    from site
-                                                    where site.campground_id = @campground_id and
-                                                    site_id not in
-                                                    (select site.site_id 
-                                                    from site 
-                                                    left join reservation on site.site_id = reservation.site_id
-                                                    where site.campground_id = @campground_id and (
-                                                    @startDate between reservation.from_date and reservation.to_date or 
-                                                    @endDate between reservation.from_date and reservation.to_date));", conn);
-                                                    
-                    SqlDataReader reader = cmd.ExecuteReader();
+                    if(campground_id != null)
+                    {
+
+
+                        cmd.CommandText = @"select *
+                                          from site
+                                          where site.campground_id = @campground_id and
+                                          site_id not in
+                                          (select site.site_id 
+                                          from site 
+                                          left join reservation on site.site_id = reservation.site_id
+                                          where site.campground_id = @campground_id and (
+                                          @startDate between reservation.from_date and reservation.to_date or 
+                                          @endDate between reservation.from_date and reservation.to_date));";
+                    }
+                    else
+                    {
+                        cmd.CommandText = @"select *
+                                          from site
+                                          join campground on site.campground_id = campground.campground_id
+                                          where campground.park_id = @park_id and
+                                          site_id not in
+                                          (select site.site_id
+                                          from site
+                                          join campground on site.campground_id = campground.campground_id
+                                          left join reservation on site.site_id = reservation.site_id
+                                          where campground.park_id = @park_id and(
+                                          @startDate between reservation.from_date and reservation.to_date or
+                                          @endDate between reservation.from_date and reservation.to_date));";
+                    }
+
+                    cmd.Parameters.AddWithValue("@campground_id", campground_id);
+                    cmd.Parameters.AddWithValue("@startDate", startingDate);
+                    cmd.Parameters.AddWithValue("@endDate", endingDate);
+                    cmd.Parameters.AddWithValue("@park_id", park_id);
+                    cmd.Connection = conn;
+
+                    SqlDataReader reader = cmd.ExecuteReader();            
 
                     while (reader.Read())
                     {
