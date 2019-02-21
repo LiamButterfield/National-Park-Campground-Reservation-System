@@ -54,22 +54,10 @@ namespace Capstone.Menus
             return reservationRequest;
         }
 
-        public (int, string) MakeReservation(IList<Site> sites, IList<Campground>campgrounds)
-        {
-            int selectedSite = 0;
-            string camperName = "";
-            var camperAndSite = (site: selectedSite, camper: camperName);
+        //public (int, string) MakeReservation(IList<Site> sites)
+        //{
 
-            Console.WriteLine("Results matching your search criteria:");
-            Console.WriteLine("Campground Site No. Max Occup. Accessible? RV Len Utility Cost");
-
-            foreach(Site site in sites)
-            {
-                Console.WriteLine($"{site.ID}{site.SiteNumber}{site.MaxOccupancy}{site.Accessible}{site.MaxRVLength}{site.Utilities}");
-            }
-            Console.ReadLine();
-            return camperAndSite;
-        }
+        //}
 
         private string intToMonth(int month)
         {
