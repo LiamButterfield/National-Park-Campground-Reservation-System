@@ -15,9 +15,10 @@ namespace Capstone
         private IReservationDAO reservationDAO;
         private MainMenuCLI mainMenu;
         private ParkInfoMenuCLI parkInfoMenu;
-        private ParkCampgroundsCLI parkCampgrounds;
+        private ParkCampgroundsMenuCLI parkCampgrounds;
+        private ReservationMenuCLI reservationMenu;
 
-        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu, ParkInfoMenuCLI parkInfoMenu, ParkCampgroundsCLI parkCampgrounds)
+        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu, ParkInfoMenuCLI parkInfoMenu, ParkCampgroundsMenuCLI parkCampgrounds, ReservationMenuCLI reservationMenu)
         {
             this.parkDAO = parkDAO;
             this.campgroundDAO = campgroundDAO;
@@ -26,6 +27,7 @@ namespace Capstone
             this.mainMenu = mainMenu;
             this.parkInfoMenu = parkInfoMenu;
             this.parkCampgrounds = parkCampgrounds;
+            this.reservationMenu = reservationMenu;
         }
 
         public void Run()
@@ -53,20 +55,21 @@ namespace Capstone
                     {                    
                     pCInput = parkCampgrounds.DisplayMenu(userPark, campgrounds);
                     }
-                    else if (pIInput == 2 || pCInput == 1)
+                    if (pIInput == 2 || pCInput == 1)
                     {
-                        ;
+                        int? campgroundID = null;
+                        DateTime requestedStart = new DateTime(1753, 01, 01);
+                        DateTime requestedEnd = new DateTime(1753, 01, 01);
+                        var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd);
+                        reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds);
+                        IList<Site> sites = siteDAO.GetAvailableSites(parkID, reservationRequest.campground, reservationRequest.from, reservationRequest.to);
+
                     }
                     else if (pIInput == 3)
                     {
                         break;
                     }
-
-
                 }
-
-
-
             }
         }
     }

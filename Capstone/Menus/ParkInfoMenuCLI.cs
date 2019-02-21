@@ -27,19 +27,9 @@ namespace Capstone.Menus
                 Console.WriteLine("2: Search for Reservation");
                 Console.WriteLine("3: Return to Previous Screen");
                 Console.Write("Please make a selection: ");
-                if (int.TryParse(Console.ReadLine(), out input))
+                if (int.TryParse(Console.ReadLine(), out input) && (input > 0 && input < 4))
                 {
-                    if (input > 0 && input < 4)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("That was not a valid input, please try again");
-                        Console.WriteLine("Press enter to continue");
-                        Console.ReadLine();
-                        Console.Clear();
-                    }
+                    break;
                 }
                 else
                 {

@@ -5,7 +5,7 @@ using Capstone.Models;
 
 namespace Capstone.Menus
 {
-    public class ParkCampgroundsCLI
+    public class ParkCampgroundsMenuCLI
     {
         public int DisplayMenu(Park park, IList<Campground> campgrounds)
         {
@@ -23,10 +23,23 @@ namespace Capstone.Menus
                     string closingMonth = intToMonth(campground.ClosingMonth);
                     Console.WriteLine($"#{campground.ID, -5}{campground.Name, -35}{openingMonth, -15}{closingMonth, -15}{campground.DailyFee, -15:C2}");
                 }
-                Console.ReadLine();
-
-                return input;
+                Console.WriteLine();
+                Console.WriteLine("1: Search for Reservation");
+                Console.WriteLine("2: Return to Previous Screen");
+                Console.Write("Please make a selection: ");
+                if (int.TryParse(Console.ReadLine(), out input) && (input > 0 && input < 3))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("That was not a valid input, please try again");
+                    Console.WriteLine("Press enter to continue");
+                    Console.ReadLine();
+                }
             }
+
+            return input;
         }
 
         private string intToMonth(int month)
