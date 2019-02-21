@@ -41,6 +41,9 @@ namespace Capstone
 
                 int parkID = int.Parse(mMInput);
 
+                Park userPark = parks[parkID - 1];
+                int piInput = parkInfoMenu.DisplayMenu(userPark);
+
                 IList<Campground> campgrounds = campgroundDAO.GetAllCampgroundsByPark(parkID);
 
 
