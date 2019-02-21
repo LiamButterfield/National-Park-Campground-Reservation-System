@@ -14,14 +14,16 @@ namespace Capstone
         private ISiteDAO siteDAO;
         private IReservationDAO reservationDAO;
         private MainMenuCLI mainMenu;
+        private ParkInfoMenuCLI parkInfoMenu;
 
-        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu)
+        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu, ParkInfoMenuCLI parkInfoMenu)
         {
             this.parkDAO = parkDAO;
             this.campgroundDAO = campgroundDAO;
             this.siteDAO = siteDAO;
             this.reservationDAO = reservationDAO;
             this.mainMenu = mainMenu;
+            this.parkInfoMenu = parkInfoMenu;
         }
 
         public void Run()

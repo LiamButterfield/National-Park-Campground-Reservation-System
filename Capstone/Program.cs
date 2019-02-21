@@ -24,8 +24,9 @@ namespace Capstone
             ISiteDAO siteDAO = new SitesSqlDAO(connectionString);
             IReservationDAO reservationDAO = new ReservationsSqlDAO(connectionString);
             MainMenuCLI mainMenu = new MainMenuCLI();
+            ParkInfoMenuCLI parkInfoMenu = new ParkInfoMenuCLI();
 
-            NPSystemController nPSystemController = new NPSystemController(parkDAO, campgroundDAO, siteDAO, reservationDAO, mainMenu);
+            NPSystemController nPSystemController = new NPSystemController(parkDAO, campgroundDAO, siteDAO, reservationDAO, mainMenu, parkInfoMenu);
             nPSystemController.Run();
 
         }
