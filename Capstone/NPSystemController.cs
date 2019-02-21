@@ -63,7 +63,10 @@ namespace Capstone
                         var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd);
                         reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds);
                         IList<Site> sites = siteDAO.GetAvailableSites(parkID, reservationRequest.campground, reservationRequest.from, reservationRequest.to);
-
+                        int selectedSite = 0;
+                        string camperName = "";
+                        var camperAndSite = (site: selectedSite, camper: camperName);
+                        camperAndSite = reservationMenu.MakeReservation(sites, campgrounds);
                     }
                     else if (pIInput == 3)
                     {
