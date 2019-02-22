@@ -111,6 +111,13 @@ namespace Capstone
                     {
                         break;
                     }
+                    else if (pCInput == 2)
+                    {
+                        //ToDo Show Reservations
+                        Console.WriteLine("Feature not yet implemented");
+                        Console.ReadLine();
+                        //List<Reservation>
+                    }
                 }
             }
         }
