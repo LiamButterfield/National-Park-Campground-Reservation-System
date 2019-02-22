@@ -68,7 +68,7 @@ namespace Capstone.Menus
                 do
                 {
                 Console.Write("What is the departure date?: ");
-                } while (DateTime.TryParse(Console.ReadLine(), out reservationRequest.to));
+                } while (!DateTime.TryParse(Console.ReadLine(), out reservationRequest.to));
                 break;
             }
             return reservationRequest;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Capstone.Models;
+using System.Linq;
 
 namespace Capstone.Menus
 {
@@ -27,7 +28,7 @@ namespace Capstone.Menus
                 int inputInt = 0;
                 int.TryParse(input, out inputInt);
 
-                if (input.ToLower() == "q" || (parks.Count >= inputInt) && (inputInt > 0))
+                if (input.ToLower() == "q" || parks.Any(p => p.ID == inputInt))
                 {
                     break;
                 }

@@ -37,8 +37,8 @@ namespace Capstone.DAL
                                           from site 
                                           left join reservation on site.site_id = reservation.site_id
                                           where site.campground_id = @campground_id and (
-                                          @startDate between reservation.from_date and reservation.to_date or 
-                                          @endDate between reservation.from_date and reservation.to_date));";
+                                          @startDate <= reservation.to_date and 
+                                          @endDate >= reservation.from_date));";
                     }
                     else
                     {
