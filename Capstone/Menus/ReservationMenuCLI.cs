@@ -67,9 +67,19 @@ namespace Capstone.Menus
                 } while (!DateTime.TryParse(Console.ReadLine(), out reservationRequest.from));
                 do
                 {
-                Console.Write("What is the departure date?: ");
+                    Console.Write("What is the departure date?: ");
                 } while (!DateTime.TryParse(Console.ReadLine(), out reservationRequest.to));
+
+                if (reservationRequest.from < reservationRequest.to)
+                {
                 break;
+                }
+                else
+                {
+                    Console.WriteLine("The arrival date must precede the departure date.");
+                    Console.WriteLine("Press enter to continue.");
+                    Console.Clear();
+                }
             }
             return reservationRequest;
         }
@@ -82,7 +92,7 @@ namespace Capstone.Menus
             var camperAndSite = (site: selectedSite, camper: camperName, keepGoing: pressOnward);
 
             Console.WriteLine("Results matching your search criteria:");
-            Console.WriteLine("Campground Site No. Max Occup. Accessible?    RV-Len         Utility    Cost");
+            Console.WriteLine("Campground                      Site No. Max Occup. Accessible?    RV-Len         Utility    Cost");
 
 
             foreach (Site site in sites)
@@ -108,7 +118,7 @@ namespace Capstone.Menus
                     accessible = "Yes";
                 }
 
-                Console.WriteLine($"{campground.Name, -15}{site.SiteNumber, -5}{site.MaxOccupancy, -10}{accessible, -15}{rVLength, -15}{utility, -10}{campground.DailyFee:C2}");
+                Console.WriteLine($"{campground.Name, -36}{site.ID, -5}{site.MaxOccupancy, -11}{accessible, -15}{rVLength, -15}{utility, -10}{campground.DailyFee:C2}");
             }
             while (true)
             {
@@ -121,10 +131,9 @@ namespace Capstone.Menus
                     camperAndSite.keepGoing = false;
                     break;
                 }
-                else if (sites.Any(s => s.SiteNumber == selectedSite))
+                else if (sites.Any(s => s.ID == selectedSite))
                 {
-                    List<Site> thisSite = new List<Site>(sites.Where(s => s.SiteNumber == selectedSite));
-                    camperAndSite.site = thisSite[0].ID;
+                    camperAndSite.site = selectedSite;
                 }
                 else
                 {
@@ -178,6 +187,7 @@ namespace Capstone.Menus
 
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("There were no campsites available for your selected date range");
                 Console.Write("Would you like to enter an alternate date range? y/n: ");
                 string input = Console.ReadLine().ToLower();
@@ -195,7 +205,7 @@ namespace Capstone.Menus
                     Console.WriteLine("Invalid Input: Please try again");
                 }
             }
-
+            Console.WriteLine();
             return output;
         }
 
