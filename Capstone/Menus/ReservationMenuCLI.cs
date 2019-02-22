@@ -78,6 +78,7 @@ namespace Capstone.Menus
                 {
                     Console.WriteLine("The arrival date must precede the departure date.");
                     Console.WriteLine("Press enter to continue.");
+                    Console.ReadLine();
                     Console.Clear();
                 }
             }
