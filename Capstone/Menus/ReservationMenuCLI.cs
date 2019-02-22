@@ -63,11 +63,11 @@ namespace Capstone.Menus
             Console.WriteLine("Results matching your search criteria:");
             Console.WriteLine("Campground Site No. Max Occup. Accessible? RV Len Utility Cost");
 
+
             foreach (Site site in sites)
             {
-                var campsite =
-                    from site in sites
-                    join campground in campgrounds on site.CampgroundID equals campground.ID;
+                List<Campground> camps = new List<Campground> (campgrounds.Where(c => c.ID == site.CampgroundID));
+                Campground campground = camps[0];
 
                 string accessible = "No";
                 if (site.Accessible)
@@ -87,7 +87,7 @@ namespace Capstone.Menus
                     accessible = "Yes";
                 }
 
-                Console.WriteLine($"{thisCampground.Name}{site.ID}{site.SiteNumber}{site.MaxOccupancy}{accessible}{rVLength}{utility}{thisCampground.DailyFee}");
+                Console.WriteLine($"{campground.Name}{site.ID}{site.SiteNumber}{site.MaxOccupancy}{accessible}{rVLength}{utility}{campground.DailyFee}");
             }
             Console.ReadLine();
             return camperAndSite;
