@@ -15,7 +15,7 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
-        public IList<Site> GetAvailableSites(int park_id, int? campground_id, DateTime startingDate, DateTime endingDate)
+        public IList<Site> GetAvailableSites(int park_id, int campground_id, DateTime startingDate, DateTime endingDate)
         {
             List<Site> sites = new List<Site>();
 
@@ -27,7 +27,7 @@ namespace Capstone.DAL
 
                     SqlCommand cmd = conn.CreateCommand();
 
-                    if(campground_id != null)
+                    if(campground_id != 0)
                     {
 
 

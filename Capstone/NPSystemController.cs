@@ -57,7 +57,7 @@ namespace Capstone
                     }
                     if (pIInput == 2 || pCInput == 1)
                     {
-                        int? campgroundID = null;
+                        int campgroundID = 0;
                         DateTime requestedStart = new DateTime(1753, 01, 01);
                         DateTime requestedEnd = new DateTime(1753, 01, 01);
                         var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd);

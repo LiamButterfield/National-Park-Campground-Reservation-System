@@ -15,6 +15,6 @@ namespace Capstone.DAL
         /// <param name="startingDate">Starting date of reservation.</param>
         /// <param name="endingDate">Ending date of reservation</param>
         /// <returns>Returns list of available sites.</returns>
-        IList<Site> GetAvailableSites(int park_id, int? campground_id, DateTime startingDate, DateTime endingDate);
+        IList<Site> GetAvailableSites(int park_id, int campground_id, DateTime startingDate, DateTime endingDate);
     }
 }

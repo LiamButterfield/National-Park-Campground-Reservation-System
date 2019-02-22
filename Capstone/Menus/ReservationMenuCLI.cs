@@ -8,9 +8,9 @@ namespace Capstone.Menus
 {
     public class ReservationMenuCLI
     {
-        public (int?, DateTime, DateTime) DisplayMenu(Park park, IList<Campground> campgrounds)
+        public (int, DateTime, DateTime) DisplayMenu(Park park, IList<Campground> campgrounds)
         {
-            int? campgroundID = null;
+            int campgroundID = 0;
             DateTime requestedStart = new DateTime(1753, 01, 01);
             DateTime requestedEnd = new DateTime(1753, 01, 01);
             var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd);
@@ -28,21 +28,35 @@ namespace Capstone.Menus
                     Console.WriteLine($"#{campground.ID,-5}{campground.Name,-35}{openingMonth,-15}{closingMonth,-15}{campground.DailyFee,-15:C2}");
                 }
                 Console.WriteLine();
-                Console.Write("Which campground? (enter 0 to search the whole park, enter X to cancel): ");
-                string input = Console.ReadLine();
+                string input = "";
+                while (true)
+                {
+                     Console.Write("Which campground? (enter 0 to search the whole park, enter X to cancel): ");
+                     input = Console.ReadLine();
+                     int.TryParse(input, out campgroundID);
+                     if (input.ToLower() == "x")
+                     {
+                        break;
+                     }
+                     else if(campgrounds.Any(c => c.ID == campgroundID))
+                     {
+                        reservationRequest.campground = int.Parse(input);
+                        break;
+                     }
+                     else if(input == "0")
+                     {
+                       // Allowing input to equal 0 for full park search.
+                        break;
+                     }
+                     else
+                     {
+                        Console.WriteLine("That was not a valid input, please try again");
+                        Console.WriteLine("Press enter to continue");
+                        Console.ReadLine();                    
+                     }
+                }
                 if (input.ToLower() == "x")
                 {
-                    break;
-                }
-                else if(campgrounds.Any(c => c.ID == int.Parse(input)))
-                {
-                    reservationRequest.campground = int.Parse(input);
-                }
-                else
-                {
-                    Console.WriteLine("That was not a valid input, please try again");
-                    Console.WriteLine("Press enter to continue");
-                    Console.ReadLine();
                     break;
                 }
                 Console.Write("What is the arrival date?: ");
@@ -89,7 +103,26 @@ namespace Capstone.Menus
 
                 Console.WriteLine($"{campground.Name}{site.ID}{site.SiteNumber}{site.MaxOccupancy}{accessible}{rVLength}{utility}{campground.DailyFee}");
             }
-            Console.ReadLine();
+            while (true)
+            {
+                Console.Write("Which site should be reserved (enter x to cancel: ");
+                string input = Console.ReadLine();
+                int.TryParse(input, out selectedSite);
+                if (input.ToLower() == "x")
+                {
+                    break;
+                }
+                else if (sites.Any(s => s.ID == selectedSite))
+                {
+                    camperAndSite.site = int.Parse(input);
+                }
+                else
+                {
+                    Console.WriteLine("That was not a valid input, please try again");
+                    Console.WriteLine("Press enter to continue");
+                    Console.ReadLine();                    
+                }
+            }
             return camperAndSite;
         }
 
