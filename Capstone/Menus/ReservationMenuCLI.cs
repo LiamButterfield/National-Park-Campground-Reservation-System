@@ -78,7 +78,7 @@ namespace Capstone.Menus
             var camperAndSite = (site: selectedSite, camper: camperName, keepGoing: pressOnward);
 
             Console.WriteLine("Results matching your search criteria:");
-            Console.WriteLine("Campground Site No. Max Occup. Accessible? RV Len Utility Cost");
+            Console.WriteLine("Campground Site No. Max Occup. Accessible?    RV-Len         Utility    Cost");
 
 
             foreach (Site site in sites)
@@ -104,7 +104,7 @@ namespace Capstone.Menus
                     accessible = "Yes";
                 }
 
-                Console.WriteLine($"{campground.Name}{site.ID}{site.SiteNumber}{site.MaxOccupancy}{accessible}{rVLength}{utility}{campground.DailyFee}");
+                Console.WriteLine($"{campground.Name, -15}{site.SiteNumber, -5}{site.MaxOccupancy, -10}{accessible, -15}{rVLength, -15}{utility, -10}{campground.DailyFee:C2}");
             }
             while (true)
             {
@@ -117,9 +117,10 @@ namespace Capstone.Menus
                     camperAndSite.keepGoing = false;
                     break;
                 }
-                else if (sites.Any(s => s.ID == selectedSite))
+                else if (sites.Any(s => s.SiteNumber == selectedSite))
                 {
-                    camperAndSite.site = int.Parse(input);
+                    List<Site> thisSite = new List<Site>(sites.Where(s => s.SiteNumber == selectedSite));
+                    camperAndSite.site = thisSite[0].ID;
                 }
                 else
                 {
