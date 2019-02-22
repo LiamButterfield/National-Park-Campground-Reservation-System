@@ -57,16 +57,55 @@ namespace Capstone
                     }
                     if (pIInput == 2 || pCInput == 1)
                     {
+                        IList<Site> sites = new List<Site>();
                         int campgroundID = 0;
                         DateTime requestedStart = new DateTime(1753, 01, 01);
                         DateTime requestedEnd = new DateTime(1753, 01, 01);
-                        var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd);
-                        reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds);
-                        IList<Site> sites = siteDAO.GetAvailableSites(parkID, reservationRequest.campground, reservationRequest.from, reservationRequest.to);
+                        bool makeReservation = true;
+
+                        var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd, keepGoing: makeReservation);
+
+                        while (true)
+                        {
+
+                            reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds);
+                            if(reservationRequest.keepGoing == false)
+                            {
+                                break;
+                            }
+
+                            sites = siteDAO.GetAvailableSites(parkID, reservationRequest.campground, reservationRequest.from, reservationRequest.to);
+                            if (sites.Count == 0)
+                            {
+                                if (!reservationMenu.NoSitesAvailable())
+                                {
+                                    break;
+                                }
+                            }
+                            break;
+                        }
                         int selectedSite = 0;
                         string camperName = "";
-                        var camperAndSite = (site: selectedSite, camper: camperName);
+                        bool pressOnward = true;
+
+                        var camperAndSite = (site: selectedSite, camper: camperName, keepGoing: pressOnward);
+
                         camperAndSite = reservationMenu.MakeReservation(sites, campgrounds);
+                        if (camperAndSite.keepGoing == false)
+                        {
+                            break;
+                        }
+
+                        Reservation newReservation = new Reservation();
+                        newReservation.SiteID = camperAndSite.site;
+                        newReservation.Name = camperAndSite.camper;
+                        newReservation.StartDate = reservationRequest.from;
+                        newReservation.EndDate = reservationRequest.to;
+
+                        int reservationID = reservationDAO.MakeReservation(newReservation);
+
+                        reservationMenu.ConfirmReservation(reservationID);
+                        break;
                     }
                     else if (pIInput == 3)
                     {

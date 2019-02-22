@@ -79,7 +79,8 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("insert into reservation values (@name, @from_date, @to_date);", conn);
+                    SqlCommand cmd = new SqlCommand("insert into reservation (site_id, name, from_date, to_date) values (@site_id, @name, @from_date, @to_date);", conn);
+                    cmd.Parameters.AddWithValue("@site_id", newReservation.SiteID);
                     cmd.Parameters.AddWithValue("@name", newReservation.Name);
                     cmd.Parameters.AddWithValue("@from_date", newReservation.StartDate);
                     cmd.Parameters.AddWithValue("@to_date", newReservation.EndDate);                    

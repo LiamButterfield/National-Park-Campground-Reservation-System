@@ -8,12 +8,13 @@ namespace Capstone.Menus
 {
     public class ReservationMenuCLI
     {
-        public (int, DateTime, DateTime) DisplayMenu(Park park, IList<Campground> campgrounds)
+        public (int, DateTime, DateTime, bool) DisplayMenu(Park park, IList<Campground> campgrounds)
         {
             int campgroundID = 0;
             DateTime requestedStart = new DateTime(1753, 01, 01);
             DateTime requestedEnd = new DateTime(1753, 01, 01);
-            var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd);
+            bool makeReservation = true;
+            var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd, keepGoing: makeReservation);
 
             while (true)
             {
@@ -36,6 +37,7 @@ namespace Capstone.Menus
                      int.TryParse(input, out campgroundID);
                      if (input.ToLower() == "x")
                      {
+                        reservationRequest.keepGoing = false;
                         break;
                      }
                      else if(campgrounds.Any(c => c.ID == campgroundID))
@@ -68,11 +70,12 @@ namespace Capstone.Menus
             return reservationRequest;
         }
 
-        public (int, string) MakeReservation(IList<Site> sites, IList<Campground> campgrounds)
+        public (int, string, bool) MakeReservation(IList<Site> sites, IList<Campground> campgrounds)
         {
             int selectedSite = 0;
             string camperName = "";
-            var camperAndSite = (site: selectedSite, camper: camperName);
+            bool pressOnward = true;
+            var camperAndSite = (site: selectedSite, camper: camperName, keepGoing: pressOnward);
 
             Console.WriteLine("Results matching your search criteria:");
             Console.WriteLine("Campground Site No. Max Occup. Accessible? RV Len Utility Cost");
@@ -105,11 +108,13 @@ namespace Capstone.Menus
             }
             while (true)
             {
-                Console.Write("Which site should be reserved (enter x to cancel: ");
+                Console.WriteLine();
+                Console.Write("Which site should be reserved (enter x to cancel): ");
                 string input = Console.ReadLine();
                 int.TryParse(input, out selectedSite);
                 if (input.ToLower() == "x")
                 {
+                    camperAndSite.keepGoing = false;
                     break;
                 }
                 else if (sites.Any(s => s.ID == selectedSite))
@@ -122,6 +127,9 @@ namespace Capstone.Menus
                     Console.WriteLine("Press enter to continue");
                     Console.ReadLine();                    
                 }
+                Console.Write("What name should the reservation be made under?: ");
+                camperAndSite.camper = Console.ReadLine();
+                break;
             }
             return camperAndSite;
         }
@@ -157,6 +165,41 @@ namespace Capstone.Menus
                 default:
                     return "How is this possible?";
             }
+        }
+
+        public bool NoSitesAvailable()
+        {
+            bool output = true;
+
+            while (true)
+            {
+                Console.WriteLine("There were no campsites available for your selected date range");
+                Console.Write("Would you like to enter an alternate date range? y/n: ");
+                string input = Console.ReadLine().ToLower();
+                if (input == "y" || input == "yes")
+                {
+                    break;
+                }
+                else if (input == "n" || input == "no")
+                {
+                    output = false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input: Please try again");
+                }
+            }
+
+            return output;
+        }
+
+        public void ConfirmReservation(int resID)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"The reservation has been made and the confirmation id is {resID}.");
+            Console.WriteLine("Thank you for using the National Park Campsite Reservation System.");
+            Console.ReadLine();
         }
     }
 }
