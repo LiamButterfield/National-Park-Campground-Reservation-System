@@ -61,10 +61,14 @@ namespace Capstone.Menus
                 {
                     break;
                 }
-                Console.Write("What is the arrival date?: ");
-                reservationRequest.from = DateTime.Parse(Console.ReadLine());
+                do
+                {
+                    Console.Write("What is the arrival date?: ");
+                } while (!DateTime.TryParse(Console.ReadLine(), out reservationRequest.from));
+                do
+                {
                 Console.Write("What is the departure date?: ");
-                reservationRequest.to = DateTime.Parse(Console.ReadLine());
+                } while (DateTime.TryParse(Console.ReadLine(), out reservationRequest.to));
                 break;
             }
             return reservationRequest;

@@ -29,8 +29,6 @@ namespace Capstone.DAL
 
                     if(campground_id != 0)
                     {
-
-
                         cmd.CommandText = @"select top 5 *
                                           from site
                                           where site.campground_id = @campground_id and
