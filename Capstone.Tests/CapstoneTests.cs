@@ -13,6 +13,11 @@ namespace Capstone.Tests
 
         private TransactionScope transaction;
 
+        protected int park1 { get; private set; }
+        protected int park2 { get; private set; }
+        protected int campground1 { get; private set; }
+        protected int campground2 { get; private set; }
+
         [TestInitialize]
         public void Setup()
         {
@@ -28,6 +33,10 @@ namespace Capstone.Tests
 
                 if (reader.Read())
                 {
+                    this.park1 = Convert.ToInt32(reader["park1"]);
+                    this.park2 = Convert.ToInt32(reader["park2"]);
+                    this.campground1 = Convert.ToInt32(reader["campground1"]);
+                    this.campground2 = Convert.ToInt32(reader["campground2"]);
                 }
 
             }
