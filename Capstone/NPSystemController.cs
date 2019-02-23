@@ -90,7 +90,7 @@ namespace Capstone
 
                         var camperAndSite = (site: selectedSite, camper: camperName, keepGoing: pressOnward);
 
-                        camperAndSite = reservationMenu.MakeReservation(sites, campgrounds);
+                        camperAndSite = reservationMenu.MakeReservation(sites, campgrounds, reservationRequest);
                         if (camperAndSite.keepGoing == false)
                         {
                             break;

@@ -85,7 +85,7 @@ namespace Capstone.Menus
             return reservationRequest;
         }
 
-        public (int, string, bool) MakeReservation(IList<Site> sites, IList<Campground> campgrounds)
+        public (int, string, bool) MakeReservation(IList<Site> sites, IList<Campground> campgrounds, (int campground, DateTime from, DateTime to, bool keepGoing) reservationRequest )
         {
             int selectedSite = 0;
             string camperName = "";
@@ -119,7 +119,9 @@ namespace Capstone.Menus
                     accessible = "Yes";
                 }
 
-                Console.WriteLine($"{campground.Name, -36}{site.ID, -5}{site.MaxOccupancy, -11}{accessible, -15}{rVLength, -15}{utility, -10}{campground.DailyFee:C2}");
+                decimal cost = campground.DailyFee * (decimal)(reservationRequest.to - reservationRequest.from).TotalDays;
+
+                Console.WriteLine($"{campground.Name, -36}{site.ID, -5}{site.MaxOccupancy, -11}{accessible, -15}{rVLength, -15}{utility, -10}{cost:C2}");
             }
             while (true)
             {
