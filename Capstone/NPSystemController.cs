@@ -113,10 +113,8 @@ namespace Capstone
                     }
                     else if (pCInput == 2)
                     {
-                        //ToDo Show Reservations
-                        Console.WriteLine("Feature not yet implemented");
-                        Console.ReadLine();
-                        //List<Reservation>
+                        IList<Reservation> upcomingReservations = reservationDAO.GetReservations(userPark);
+                        parkCampgrounds.ShowReservations(upcomingReservations);
                     }
                 }
             }

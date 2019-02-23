@@ -17,9 +17,9 @@ namespace Capstone.Menus
                 Console.WriteLine(park.Name);
                 Console.WriteLine();
                 Console.WriteLine($"Location:           {park.Location}");
-                Console.WriteLine($"Established:        {park.EstablishedDate}");
-                Console.WriteLine($"Area:               {park.Area} sq km");
-                Console.WriteLine($"Annual Visitors:    {park.Visitors}");
+                Console.WriteLine($"Established:        {park.EstablishedDate:MMMM dd, yyyy}");
+                Console.WriteLine($"Area:               {park.Area:n} sq km");
+                Console.WriteLine($"Annual Visitors:    {park.Visitors:n0}");
                 Console.WriteLine();
                 Console.WriteLine(park.Description);
                 Console.WriteLine();

@@ -75,5 +75,19 @@ namespace Capstone.Menus
                     return "How is this possible?";
             }
         }
+
+        public void ShowReservations(IList<Reservation> reservations)
+        {
+            Console.Clear();
+            Console.WriteLine("Upcoming Reservations:");
+            Console.WriteLine("Res. ID  Site ID    Camper Name                             Start Date       End Date         Res Created");
+            foreach( Reservation res in reservations)
+            {
+                Console.WriteLine($"{res.ID, -10}{res.SiteID, -10}{res.Name, -40}{res.StartDate:MM/dd/yyyy}       {res.EndDate:MM/dd/yyyy}        {res.CreationDate:MM/dd/yyyy}");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Press enter to continue");
+            Console.ReadLine();
+        }
     }
 }
