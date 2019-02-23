@@ -30,4 +30,4 @@ insert into reservation (site_id, name, from_date, to_date) values (@site1, 'gar
 insert into reservation (site_id, name, from_date, to_date) values (@site2, 'jason vorhees','2019-03-01','2019-03-29');
 insert into reservation (site_id, name, from_date, to_date) values (@site3, 'river ryver','2019-02-15','2019-03-15');
 
-select @park1 as park1, @park2 as park2, @campground1 as campground1, @campground2 as campground2
+select @park1 as park1, @park2 as park2, @campground1 as campground1, @campground2 as campground2, @site5 as siteID

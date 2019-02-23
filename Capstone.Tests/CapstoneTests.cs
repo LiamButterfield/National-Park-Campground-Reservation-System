@@ -17,6 +17,7 @@ namespace Capstone.Tests
         protected int park2 { get; private set; }
         protected int campground1 { get; private set; }
         protected int campground2 { get; private set; }
+        protected int siteID { get; private set; }
 
         [TestInitialize]
         public void Setup()
@@ -37,6 +38,7 @@ namespace Capstone.Tests
                     this.park2 = Convert.ToInt32(reader["park2"]);
                     this.campground1 = Convert.ToInt32(reader["campground1"]);
                     this.campground2 = Convert.ToInt32(reader["campground2"]);
+                    this.siteID = Convert.ToInt32(reader["siteID"]);
                 }
 
             }
