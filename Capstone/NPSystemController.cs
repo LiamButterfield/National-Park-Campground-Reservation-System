@@ -4,6 +4,7 @@ using System.Text;
 using Capstone.DAL;
 using Capstone.Models;
 using Capstone.Menus;
+using System.Linq;
 
 namespace Capstone
 {
@@ -64,26 +65,52 @@ namespace Capstone
                         bool makeReservation = true;
 
                         var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd, keepGoing: makeReservation);
+                        bool quit = false;
 
                         while (true)
                         {
+                            quit = false;
 
-                            reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds);
-                            if(reservationRequest.keepGoing == false)
+                            reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds); Campground thisCampground = new Campground();
+
+                            if (reservationRequest.campground != 0)
                             {
+                                List<Campground> camps = new List<Campground>(campgrounds.Where(c => c.ID == reservationRequest.campground));
+                                thisCampground = camps[0];
+                                if (reservationRequest.from.Month < thisCampground.OpeningMonth || reservationRequest.to.Month > thisCampground.ClosingMonth)
+                                {
+                                    quit = true;
+                                    reservationMenu.DateOutOfRange();
+                                }
+                            }
+
+                            if (reservationRequest.keepGoing == false)
+                            {
+                                quit = true;
                                 break;
                             }
 
                             sites = siteDAO.GetAvailableSites(parkID, reservationRequest.campground, reservationRequest.from, reservationRequest.to);
                             if (sites.Count == 0)
                             {
+                                quit = true;
+
                                 if (!reservationMenu.NoSitesAvailable())
                                 {
                                     break;
                                 }
                             }
+                            if (!quit)
+                            {
+                                break;
+                            }
+                        }
+
+                        if (quit)
+                        {
                             break;
                         }
+
                         int selectedSite = 0;
                         string camperName = "";
                         bool pressOnward = true;

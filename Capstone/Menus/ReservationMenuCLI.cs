@@ -219,5 +219,14 @@ namespace Capstone.Menus
             Console.WriteLine("Thank you for using the National Park Campsite Reservation System.");
             Console.ReadLine();
         }
+
+        public void DateOutOfRange()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Sorry, the park is closed during your requested stay");
+            Console.WriteLine("Press enter to continue");
+            Console.ReadLine();
+            Console.Clear();
+        }
     }
 }
