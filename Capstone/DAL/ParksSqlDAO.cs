@@ -15,6 +15,10 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Gets the list of all parks.
+        /// </summary>
+        /// <returns>parks</returns>
         public IList<Park> GetAllParks()
         {
             List<Park> parks = new List<Park>();
@@ -45,6 +49,11 @@ namespace Capstone.DAL
             return parks;
         }
 
+        /// <summary>
+        /// Converts a row in sql into a park object.
+        /// </summary>
+        /// <param name="reader">The line being read from the database.</param>
+        /// <returns>park</returns>
         private Park ConvertReaderToPark(SqlDataReader reader)
         {
             Park park = new Park();

@@ -16,6 +16,11 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Gets the list of reservations.
+        /// </summary>
+        /// <param name="park">Name of the park.</param>
+        /// <returns>reservations</returns>
         public IList<Reservation> GetReservations(Park park)
         {
             List<Reservation> reservations = new List<Reservation>();
@@ -56,6 +61,11 @@ namespace Capstone.DAL
             return reservations;
         }
 
+        /// <summary>
+        /// Converts a row in sql into a reservation object.
+        /// </summary>
+        /// <param name="reader">The line being read from the database.</param>
+        /// <returns>reservation</returns>
         private Reservation ConvertReaderToReservation(SqlDataReader reader)
         {
             Reservation reservation = new Reservation();
@@ -69,6 +79,11 @@ namespace Capstone.DAL
             return reservation;
         }
 
+        /// <summary>
+        /// Creates a new reservation.
+        /// </summary>
+        /// <param name="newReservation">Makes a new reservation.</param>
+        /// <returns>An id</returns>
         public int MakeReservation(Reservation newReservation)
         {
             int id = 0;

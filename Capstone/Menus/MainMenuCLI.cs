@@ -8,6 +8,11 @@ namespace Capstone.Menus
 {
     public class MainMenuCLI
     {
+        /// <summary>
+        /// The main menu display.
+        /// </summary>
+        /// <param name="parks">The parks</param>
+        /// <returns>input</returns>
         public string DisplayMenu(IList<Park> parks)
         {
             string input = null;

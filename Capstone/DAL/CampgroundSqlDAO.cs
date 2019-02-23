@@ -15,6 +15,11 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Gets the list of campgrounds by park id.
+        /// </summary>
+        /// <param name="parkID">The id of the park.</param>
+        /// <returns>campgrounds</returns>
         public IList<Campground> GetAllCampgroundsByPark(int parkID)
         {
             List<Campground> campgrounds = new List<Campground>();
@@ -46,6 +51,11 @@ namespace Capstone.DAL
             return campgrounds;
         }
 
+        /// <summary>
+        /// Converts a row in sql into a campground object.
+        /// </summary>
+        /// <param name="reader">The line being read from the database.</param>
+        /// <returns>campground</returns>
         private Campground ConvertReaderToCampground(SqlDataReader reader)
         {
             Campground campground = new Campground();

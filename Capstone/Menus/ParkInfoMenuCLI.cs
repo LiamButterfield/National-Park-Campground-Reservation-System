@@ -7,6 +7,11 @@ namespace Capstone.Menus
 {
     public class ParkInfoMenuCLI
     {
+        /// <summary>
+        /// The park info display menu.
+        /// </summary>
+        /// <param name="park">The park</param>
+        /// <returns>User input</returns>
         public int DisplayMenu(Park park)
         {
             int input = 0;          

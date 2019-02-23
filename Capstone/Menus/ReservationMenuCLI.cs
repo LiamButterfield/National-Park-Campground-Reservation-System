@@ -7,7 +7,13 @@ using System.Linq;
 namespace Capstone.Menus
 {
     public class ReservationMenuCLI
-    {
+    {    
+        /// <summary>
+        /// The reservation display menu.
+        /// </summary>
+        /// <param name="park">The park</param>
+        /// <param name="campgrounds">The campgrounds</param>
+        /// <returns>Reservation request</returns>
         public (int, DateTime, DateTime, bool) DisplayMenu(Park park, IList<Campground> campgrounds)
         {
             int campgroundID = 0;
@@ -85,6 +91,13 @@ namespace Capstone.Menus
             return reservationRequest;
         }
 
+        /// <summary>
+        /// Makes a reservation.
+        /// </summary>
+        /// <param name="sites">The sites</param>
+        /// <param name="campgrounds">The campgrounds</param>
+        /// <param name="reservationRequest">The reservation request</param>
+        /// <returns>Camper and site</returns>
         public (int, string, bool) MakeReservation(IList<Site> sites, IList<Campground> campgrounds, (int campground, DateTime from, DateTime to, bool keepGoing) reservationRequest )
         {
             int selectedSite = 0;
@@ -151,6 +164,11 @@ namespace Capstone.Menus
             return camperAndSite;
         }
 
+        /// <summary>
+        /// Converts int to month.
+        /// </summary>
+        /// <param name="month">The month</param>
+        /// <returns>Name of a month</returns>
         private string intToMonth(int month)
         {
             switch (month)
@@ -184,6 +202,10 @@ namespace Capstone.Menus
             }
         }
 
+        /// <summary>
+        /// Displays if no sites are available for reservation.
+        /// </summary>
+        /// <returns>Output</returns>
         public bool NoSitesAvailable()
         {
             bool output = true;

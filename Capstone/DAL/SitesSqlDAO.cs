@@ -15,6 +15,14 @@ namespace Capstone.DAL
             connectionString = dbConnectionString;
         }
 
+        /// <summary>
+        /// Gets the list of available sites.
+        /// </summary>
+        /// <param name="park_id">park's id</param>
+        /// <param name="campground_id">campground's id</param>
+        /// <param name="startingDate">reservation starting date</param>
+        /// <param name="endingDate">reservation ending date</param>
+        /// <returns></returns>
         public IList<Site> GetAvailableSites(int park_id, int campground_id, DateTime startingDate, DateTime endingDate)
         {
             List<Site> sites = new List<Site>();
@@ -80,6 +88,11 @@ namespace Capstone.DAL
             return sites;
         }
 
+        /// <summary>
+        ///  Converts a row in sql into a site object.
+        /// </summary>
+        /// <param name="reader">The line being read from the database.</param>
+        /// <returns>site</returns>
         private Site ConvertReaderToSite(SqlDataReader reader)
         {
             Site site = new Site();

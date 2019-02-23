@@ -7,6 +7,12 @@ namespace Capstone.Menus
 {
     public class ParkCampgroundsMenuCLI
     {
+        /// <summary>
+        /// The Park Campgrounds Menu.
+        /// </summary>
+        /// <param name="park">The park</param>
+        /// <param name="campgrounds">The campgrounds</param>
+        /// <returns>User input</returns>
         public int DisplayMenu(Park park, IList<Campground> campgrounds)
         {
             int input = 0;
@@ -75,7 +81,11 @@ namespace Capstone.Menus
                     return "How is this possible?";
             }
         }
-
+       
+        /// <summary>
+        /// Shows a list of reservations.
+        /// </summary>
+        /// <param name="reservations">The reservations</param>
         public void ShowReservations(IList<Reservation> reservations)
         {
             Console.Clear();
