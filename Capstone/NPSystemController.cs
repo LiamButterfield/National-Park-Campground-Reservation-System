@@ -17,12 +17,12 @@ namespace Capstone
         private ICampgroundDAO campgroundDAO;
         private ISiteDAO siteDAO;
         private IReservationDAO reservationDAO;
-        private MainMenuCLI mainMenu;
-        private ParkInfoMenuCLI parkInfoMenu;
-        private ParkCampgroundsMenuCLI parkCampgrounds;
-        private ReservationMenuCLI reservationMenu;
+        private IMainMenu mainMenu;
+        private IParkInfoMenu parkInfoMenu;
+        private IParkCampgroundsMenu parkCampgrounds;
+        private IReservationMenu reservationMenu;
 
-        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, MainMenuCLI mainMenu, ParkInfoMenuCLI parkInfoMenu, ParkCampgroundsMenuCLI parkCampgrounds, ReservationMenuCLI reservationMenu)
+        public NPSystemController(IParkDAO parkDAO, ICampgroundDAO campgroundDAO, ISiteDAO siteDAO, IReservationDAO reservationDAO, IMainMenu mainMenu, IParkInfoMenu parkInfoMenu, IParkCampgroundsMenu parkCampgrounds, IReservationMenu reservationMenu)
         {
             this.parkDAO = parkDAO;
             this.campgroundDAO = campgroundDAO;
@@ -90,14 +90,14 @@ namespace Capstone
                         bool makeReservation = true;
                         var reservationRequest = (campground: campgroundID, from: requestedStart, to: requestedEnd, keepGoing: makeReservation);
 
-                        //A boolean to control when we break out of these nested while loops - not a good design
-                        bool quit = false;
+                        //A boolean to control when we break out of these nested while loops
+                        bool looper = false;
 
                         //The loop which keeps us in the Reservation Menu's display menu method
-                        while (true)
+                        do
                         {
                             //Making sure this is false whenever we start the loop
-                            quit = false;
+                            looper = false;
 
                             //Displayinng the reservation menu
                             reservationRequest = reservationMenu.DisplayMenu(userPark, campgrounds); Campground thisCampground = new Campground();
@@ -112,7 +112,7 @@ namespace Capstone
                                 if (reservationRequest.from.Month < thisCampground.OpeningMonth || reservationRequest.to.Month > thisCampground.ClosingMonth)
                                 {
                                     //Changing the control variable so we stay in this loop
-                                    quit = true;
+                                    looper = true;
                                     //Displaying the out of range message
                                     reservationMenu.DateOutOfRange();
                                 }
@@ -122,7 +122,7 @@ namespace Capstone
                             if (reservationRequest.keepGoing == false)
                             {
                                 //changing the control variable so we return to the top menu
-                                quit = true;
+                                looper = true;
                                 break;
                             }
 
@@ -131,7 +131,7 @@ namespace Capstone
                             if (sites.Count == 0)
                             {
                                 //changing the control variable
-                                quit = true;
+                                looper = true;
 
                                 //telling the user there were no sites available and checking their choice of whther or not to continue
                                 if (!reservationMenu.NoSitesAvailable())
@@ -140,15 +140,10 @@ namespace Capstone
                                 }
                             }
 
-                            //Where we break out of the loop - should have been controlled by the while statement instead of just saying "while (true)"
-                            if (!quit)
-                            {
-                                break;
-                            }
-                        }
+                        } while (looper);
 
                         //If we display the make reservation menu
-                        if (!quit)
+                        if (!looper)
                         {
                             //Creating a variable to store information returned from the "make reservation" method of the reservsation menu
                             int selectedSite = 0;

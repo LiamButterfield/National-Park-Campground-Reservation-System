@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Capstone.Menus
 {
-    public class ReservationMenuCLI
+    public class ReservationMenuCLI : IReservationMenu
     {    
         /// <summary>
         /// The reservation display menu.
@@ -98,7 +98,7 @@ namespace Capstone.Menus
         /// <param name="campgrounds">The campgrounds</param>
         /// <param name="reservationRequest">The reservation request</param>
         /// <returns>Camper and site</returns>
-        public (int, string, bool) MakeReservation(IList<Site> sites, IList<Campground> campgrounds, (int campground, DateTime from, DateTime to, bool keepGoing) reservationRequest )
+        public (int, string, bool) MakeReservation(IList<Site> sites, IList<Campground> campgrounds, (int campground, DateTime from, DateTime to, bool keepGoing) reservationRequest)
         {
             int selectedSite = 0;
             string camperName = "";

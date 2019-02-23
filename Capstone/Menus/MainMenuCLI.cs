@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Capstone.Menus
 {
-    public class MainMenuCLI
+    public class MainMenuCLI : IMainMenu
     {
         /// <summary>
         /// The main menu display.

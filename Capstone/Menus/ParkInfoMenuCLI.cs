@@ -5,7 +5,7 @@ using Capstone.Models;
 
 namespace Capstone.Menus
 {
-    public class ParkInfoMenuCLI
+    public class ParkInfoMenuCLI : IParkInfoMenu
     {
         /// <summary>
         /// The park info display menu.
